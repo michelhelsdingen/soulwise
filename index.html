@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soulwise — Your Daily Dose of Inner Wisdom</title>
+    <meta name="description" content="855 handcrafted affirmations matched to your mood. Breathe, reflect, grow. Available on iOS.">
+    <meta property="og:title" content="Soulwise — Your Daily Dose of Inner Wisdom">
+    <meta property="og:description" content="855 handcrafted affirmations matched to your mood. Breathe, reflect, grow.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://soulwiseapp.com">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✨</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --surface: #1B0B2F;
+            --surface-container: #27183C;
+            --primary: #CABEFF;
+            --primary-container: #9487D1;
+            --secondary: #EDBF7C;
+            --secondary-dim: #DAAE6C;
+            --on-surface: #EEDCFF;
+            --on-surface-variant: #C9C4D1;
+            --deep: #150529;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--deep);
+            color: var(--on-surface);
+            overflow-x: hidden;
+        }
+
+        /* Ambient background */
+        .bg-glow {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none; z-index: 0;
+        }
+        .bg-glow::before {
+            content: '';
+            position: absolute;
+            top: -20%; left: 50%; transform: translateX(-50%);
+            width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(148, 135, 209, 0.15) 0%, transparent 70%);
+            animation: breathe 8s ease-in-out infinite;
+        }
+        .bg-glow::after {
+            content: '';
+            position: absolute;
+            bottom: -10%; right: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(237, 191, 124, 0.08) 0%, transparent 70%);
+            animation: breathe 10s ease-in-out infinite reverse;
+        }
+        @keyframes breathe {
+            0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+        }
+
+        section { position: relative; z-index: 1; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+        }
+        .hero-sparkle {
+            font-size: 48px;
+            margin-bottom: 24px;
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 400;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-sub {
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: var(--on-surface-variant);
+            max-width: 480px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        .cta-group { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+        .cta {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 16px; font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .cta-primary {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-dim) 100%);
+            color: var(--surface);
+        }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(237, 191, 124, 0.3); }
+        .cta-secondary {
+            background: rgba(202, 190, 255, 0.1);
+            color: var(--primary);
+            border: 1px solid rgba(202, 190, 255, 0.2);
+        }
+        .cta-secondary:hover { background: rgba(202, 190, 255, 0.15); }
+        .hero-badge {
+            margin-top: 48px;
+            display: flex; align-items: center; gap: 12px;
+            color: var(--on-surface-variant);
+            font-size: 14px; opacity: 0.6;
+        }
+
+        /* Stats bar */
+        .stats {
+            display: flex; justify-content: center; gap: clamp(24px, 6vw, 80px);
+            padding: 48px 24px;
+            border-top: 1px solid rgba(202, 190, 255, 0.08);
+            border-bottom: 1px solid rgba(202, 190, 255, 0.08);
+        }
+        .stat { text-align: center; }
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 5vw, 40px);
+            color: var(--secondary);
+            font-weight: 600;
+        }
+        .stat-label {
+            font-size: 13px;
+            color: var(--on-surface-variant);
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Features */
+        .features {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 100px 24px;
+        }
+        .features-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 5vw, 40px);
+            text-align: center;
+            margin-bottom: 60px;
+            font-weight: 400;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .feature-card {
+            background: var(--surface-container);
+            border: 1px solid rgba(202, 190, 255, 0.06);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(202, 190, 255, 0.15);
+            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.3);
+        }
+        .feature-emoji { font-size: 36px; margin-bottom: 16px; }
+        .feature-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: var(--on-surface);
+        }
+        .feature-card p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--on-surface-variant);
+        }
+
+        /* Quote section */
+        .quote-section {
+            text-align: center;
+            padding: 80px 24px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .quote-mark {
+            font-family: 'Playfair Display', serif;
+            font-size: 80px;
+            color: var(--primary);
+            opacity: 0.3;
+            line-height: 0.5;
+        }
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 4vw, 32px);
+            font-style: italic;
+            line-height: 1.5;
+            color: var(--on-surface);
+            margin: 24px 0;
+        }
+        .quote-divider {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            margin-top: 24px;
+            opacity: 0.3;
+        }
+        .quote-divider span { display: block; width: 32px; height: 1px; background: var(--primary); }
+
+        /* Categories */
+        .categories {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 24px 100px;
+            text-align: center;
+        }
+        .categories-title {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--on-surface-variant);
+            margin-bottom: 24px;
+        }
+        .category-pills {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .pill {
+            padding: 8px 18px;
+            border-radius: 50px;
+            background: rgba(202, 190, 255, 0.06);
+            border: 1px solid rgba(202, 190, 255, 0.1);
+            font-size: 14px;
+            color: var(--on-surface-variant);
+            transition: all 0.2s;
+        }
+        .pill:hover {
+            background: rgba(202, 190, 255, 0.12);
+            color: var(--on-surface);
+        }
+
+        /* CTA bottom */
+        .bottom-cta {
+            text-align: center;
+            padding: 80px 24px 40px;
+        }
+        .bottom-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+        .bottom-cta p {
+            color: var(--on-surface-variant);
+            margin-bottom: 32px;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 24px;
+            border-top: 1px solid rgba(202, 190, 255, 0.06);
+            color: var(--on-surface-variant);
+            font-size: 13px;
+            opacity: 0.5;
+        }
+        footer a { color: var(--primary); text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+        .footer-links { display: flex; gap: 24px; justify-content: center; margin-bottom: 16px; }
+
+        @media (max-width: 600px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .stats { flex-direction: column; gap: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="bg-glow"></div>
+
+<section class="hero">
+    <div class="hero-sparkle">&#10024;</div>
+    <h1><span>Your daily dose<br>of inner wisdom</span></h1>
+    <p class="hero-sub">855 handcrafted affirmations matched to your mood. Breathe, reflect, grow. Start your journey toward a kinder mind.</p>
+    <div class="cta-group">
+        <a href="https://apps.apple.com/app/soulwise-mind-soul/id6761379972" class="cta cta-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 21.99 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 21.99C7.79 22.03 6.8 20.68 5.96 19.47C4.25 16.97 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
+            Download for iOS
+        </a>
+        <a href="#features" class="cta cta-secondary">Learn more</a>
+    </div>
+    <div class="hero-badge">
+        <span>iOS 17+</span>
+        <span>&bull;</span>
+        <span>Dark Mode</span>
+        <span>&bull;</span>
+        <span>No Account Required</span>
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stat">
+        <div class="stat-number">855</div>
+        <div class="stat-label">Affirmations</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">15</div>
+        <div class="stat-label">Categories</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Mood Types</div>
+    </div>
+    <div class="stat">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Breathing Exercises</div>
+    </div>
+</section>
+
+<section class="features" id="features">
+    <h2 class="features-title">More than just affirmations</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-emoji">&#128156;</div>
+            <h3>Mood-Matched</h3>
+            <p>Tell us how you're feeling. Our intelligent matching delivers affirmations weighted to what you need most right now.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-emoji">&#129693;</div>
+            <h3>Breathing Exercises</h3>
+            <p>Calm your mind with guided Box Breathing and 4-7-8 techniques. Animated visuals and haptic feedback guide every breath.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-emoji">&#128293;</div>
+            <h3>Daily Streaks</h3>
+            <p>Build a positive habit. Track your streak and celebrate milestones at 7, 30, and 100 days of consistent practice.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-emoji">&#127793;</div>
+            <h3>Daily Intention</h3>
+            <p>Start each day with purpose. Set a personal intention that grounds your affirmation practice in what matters to you.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-emoji">&#128200;</div>
+            <h3>Mood Journey</h3>
+            <p>Track your emotional landscape over time with a visual mood calendar and monthly insights into your well-being.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-emoji">&#9997;&#65039;</div>
+            <h3>Write Your Own</h3>
+            <p>Create personal affirmations that speak to your unique journey. Your words, your way, always private.</p>
+        </div>
+    </div>
+</section>
+
+<section class="quote-section">
+    <div class="quote-mark">&ldquo;</div>
+    <p class="quote-text">I am worthy of love and respect exactly as I am.</p>
+    <div class="quote-divider">
+        <span></span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="rgba(202,190,255,0.4)"><path d="M12 2L14.5 9.5H22L16 14L18.5 21.5L12 17L5.5 21.5L8 14L2 9.5H9.5L12 2Z"/></svg>
+        <span></span>
+    </div>
+</section>
+
+<section class="categories">
+    <div class="categories-title">15 Categories to Explore</div>
+    <div class="category-pills">
+        <span class="pill">&#128151; Self Love</span>
+        <span class="pill">&#10024; Confidence</span>
+        <span class="pill">&#128591; Gratitude</span>
+        <span class="pill">&#127807; Anxiety Relief</span>
+        <span class="pill">&#127775; Success</span>
+        <span class="pill">&#127800; Health & Body</span>
+        <span class="pill">&#129309; Relationships</span>
+        <span class="pill">&#127749; Morning Ritual</span>
+        <span class="pill">&#127769; Evening Wind Down</span>
+        <span class="pill">&#128330;&#65039; Forgiveness</span>
+        <span class="pill">&#129494; Inner Peace</span>
+        <span class="pill">&#127912; Creativity</span>
+        <span class="pill">&#128737;&#65039; Boundaries</span>
+        <span class="pill">&#128522; Joy & Happiness</span>
+        <span class="pill">&#127793; Courage & Growth</span>
+    </div>
+</section>
+
+<section class="bottom-cta">
+    <h2>Your mind deserves kindness</h2>
+    <p>Start your journey today. Free to download, no account required.</p>
+    <a href="https://apps.apple.com/app/soulwise-mind-soul/id6761379972" class="cta cta-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 21.99 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 21.99C7.79 22.03 6.8 20.68 5.96 19.47C4.25 16.97 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.09 16.67C20.06 16.74 19.67 18.11 18.71 19.5ZM13 3.5C13.73 2.67 14.94 2.04 15.94 2C16.07 3.17 15.6 4.35 14.9 5.19C14.21 6.04 13.07 6.7 11.95 6.61C11.8 5.46 12.36 4.26 13 3.5Z"/></svg>
+        Download for iOS
+    </a>
+</section>
+
+<footer>
+    <div class="footer-links">
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms of Use</a>
+        <a href="/support.html">Support</a>
+    </div>
+    <p>&copy; 2026 Michel Helsdingen. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
